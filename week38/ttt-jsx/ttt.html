@@ -1,0 +1,47 @@
+<html>
+<head> 
+    <title>Tic-tac-toe</title>
+    <style>
+        td {
+            width: 40px;
+            height: 40px;
+            border: 1px solid black;
+        }
+        td.blank {
+            background: white;
+        }
+        td.X {
+            background-image: url(X.png);
+        }
+        td.O {
+            background-image: url(O.png);
+        }
+        table {
+            border: 1px solid black;
+            border-spacing: 0;
+        }
+        #reset {
+            margin-top: 10px;
+        }
+    </style>
+    <script crossorigin src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <script src="model.js"></script>
+    <script src="view.js"></script>
+    <script src="store.js"></script>
+</head>
+<body>
+    <h1>Tic-tac-toe</h1>
+    <p id = 'messages'></p>
+    <table id = 'board'></table>
+    <button id = 'reset'>Reset</button>
+</body>
+<script>
+    var model = model();
+    var store = store(model);
+    function dispatch(action) {
+        store.onAction(action)
+    }
+    update(view(store.state()))
+</script>
+</html>
