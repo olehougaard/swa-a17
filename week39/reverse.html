@@ -1,0 +1,62 @@
+<body></body>
+<script language="javascript">
+    function model() {
+        let text = ''
+        return {
+            text(value) {
+                if (value !== undefined) text = value
+                return text
+            },
+            reversed() {
+                return text
+                    .split('')
+                    .reverse()
+                    .join('')
+            }
+        }
+    }
+
+    function view(parent) {
+        const input = document.createElement('input')
+        input.setAttribute('type', 'text')
+        const reversed = document.createElement('p')
+        const button = document.createElement('button')
+        button.innerText = 'Reset'
+        parent.append(input)
+        parent.append(reversed)
+        parent.append(button)
+
+        return {
+            setText(text) {
+                input.value = text
+            },
+            setReversed(text) {
+                reversed.innerText = text
+            },
+            listen(listener) {
+                input.oninput = () => listener.textChanged(input.value)
+                button.onclick = () => listener.reset()
+            }
+        }
+    }
+
+    function constructor(model, view) {
+        return {
+            textChanged(newText) {
+                model.text(newText)
+                view.setReversed(model.reversed())
+            },
+            reset() {
+                model.text('')
+                view.setReversed(model.reversed())
+                view.setText(model.text())
+            }
+        }
+    }
+
+    const the_model = model() 
+    const the_view = view(document.body)
+    const the_constructor = constructor(the_model, the_view)
+    the_view.listen(the_constructor)
+
+</script>
