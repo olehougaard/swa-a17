@@ -28,36 +28,30 @@ function createMessage(model) {
         return createTextElement('p', 'Your turn, ' + model.playerInTurn())
 }
 
-function createBoard(model, controller) {
+function createBoard(model) {
     return createParentElement('table')(
         model.board.map( (row, i) => {
             return createParentElement('tr')(row.map ( (tile, j) => {
                 const td = createTextElement('td', '', {
-                    'class': tile || 'blank'
+                    'class': tile || 'blank',
+                    onclick: "dispatch({type:'move', x: " + i+ ", y: " + j + "})"
                 });
-                td.onclick= controller.clickBoard.bind(controller, i, j)
                 return td
             }));
         })
     );
 }
 
-function resetButton(controller) {
-    const button = createTextElement('button', 'Reset', { id: 'reset' })
-    button.onclick = controller.clickReset.bind(controller)
-    return button
-}
-
-function view(model, controller) {
-    return [
+function view(model) {
+    return createParentElement('div')([
         createTextElement('h1', 'Tic-tac-toe'), 
         createMessage(model), 
-        createBoard(model, controller), 
-        resetButton(controller)];
+        createBoard(model), 
+        createTextElement('button', 'Reset', { id: 'reset', onclick: 'dispatch({type: "reset"})' })]);
 }
 
 function update(view) {
     const body = document.body
     while(body.firstChild) body.removeChild(body.firstChild)
-    appendAll(body, view)
+    body.appendChild(view)
 }

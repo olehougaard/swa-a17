@@ -1,0 +1,37 @@
+<html ng-app='reverseApp'>
+    <head>
+        <script language="javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js">
+        </script>
+        <script language="javascript">
+            function model() {
+                let the_text = ''
+                function text(value) {
+                    if (value !== undefined) {
+                        the_text = value
+                    }
+                    return the_text
+                }
+                function reverse(value) {
+                    if (value != undefined) {
+                        the_text = value.split('').reverse().join('')
+                    }
+                    return the_text.split('').reverse().join('')
+                }
+                const the_model = {}
+                Object.defineProperty(the_model, 'text', { get: text, set: text })
+                Object.defineProperty(the_model, 'reverse', { get: reverse, set: reverse })
+                the_model.reset = () => text('')
+                return the_model
+            }
+            const module = angular.module('reverseApp', [])
+            module.controller('TextReverseController', function TextReverseController($scope) {
+                    $scope.model = model()
+                })
+        </script>
+    </head>
+    <body ng-controller="TextReverseController">
+        <input ng-model="model.text">
+        <input ng-model="model.reverse">
+        <button ng-click="model.reset()">Reset</button>
+    </body>
+</html>

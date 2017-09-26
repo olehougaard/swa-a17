@@ -1,18 +1,19 @@
-function controller(model) {
+function controller(initialState, updater) {
+    let model = initialState
     function showModel() {
-        update(view(model, controller))
+        updater(model, controller)
     }
 
     function clickBoard(x, y) {
         if (model.legalMove(x, y)) {
             model = model.makeMove(x, y);
-            update(view(model, this))
+            updater(model, this)
         }
     };
     
     function clickReset() {
         model = model.clear();
-        update(view(model, this))
+        updater(model, this)
     };
 
     return { clickBoard, clickReset, showModel }

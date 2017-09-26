@@ -1,0 +1,50 @@
+<html ng-app='reverseApp'>
+    <head>
+        <script language="javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js">
+        </script>
+        <script language="javascript">
+            function model() {
+                let the_text = ''
+                function text(value) {
+                    if (value !== undefined) {
+                        the_text = value
+                    }
+                    return the_text
+                }
+                function reverse(value) {
+                    if (value != undefined) {
+                        the_text = value.split('').reverse().join('')
+                    }
+                    return the_text.split('').reverse().join('')
+                }
+                const the_model = {}
+                Object.defineProperty(the_model, 'text', { get: text, set: text })
+                Object.defineProperty(the_model, 'reverse', { get: reverse, set: reverse })
+                the_model.reset = () => text('')
+                return the_model
+            }
+            const module = angular.module('reverseApp', [])
+            module.value('$model', model())
+            module.component('modelInput', {
+                bindings: { propertyName: '@' },
+                template: '<input ng-model="$ctrl.model[$ctrl.propertyName]">',
+                controller: ['$model', function TextReverseController($model) {
+                    this.model = $model
+                }]            
+            })
+            module.component('modelButton', {
+                bindings: { onClick: '@' },
+                transclude: true,
+                template: '<button ng-click="$ctrl.model[$ctrl.onClick]()"><ng-transclude></ng-transclude></button>',
+                controller: ['$model', function TextReverseController($model) {
+                    this.model = $model
+                }]
+            })
+        </script>
+    </head>
+    <body>
+        <model-input property-name='text'></model-input>
+        <model-input property-name='reverse'></model-input>
+        <model-button on-click='reset'>Reset</model-button>
+    </body>
+</html>

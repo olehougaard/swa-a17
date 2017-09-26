@@ -36,7 +36,18 @@
 </body>
 <script>
     var model = model();
-    var controller = controller(model);
+    var controller = controller(model, 
+    (model, controller) => update(view(model)));
+    function dispatch(action) {
+        switch (action.type) {
+            case 'move':
+                controller.clickBoard(action.x, action.y)
+                break;
+            case 'reset':
+                controller.clickReset()
+                break;
+        }
+    }
     controller.showModel();
 </script>
 </html>
