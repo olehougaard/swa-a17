@@ -23,6 +23,8 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-react": "^6.24.1",
-    "mocha": "^3.5.3"
+    "expect": "^21.2.1",
+    "mocha": "^3.5.3",
+    "tape": "^4.8.0"
   }
 }
