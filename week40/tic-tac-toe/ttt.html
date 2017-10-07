@@ -1,0 +1,34 @@
+<html>
+<head> 
+    <title>Tic-tac-toe</title>
+    <style>
+        td {
+            width: 40px;
+            height: 40px;
+            border: 1px solid black;
+        }
+        table {
+            border: 1px solid black;
+            border-spacing: 0;
+        }
+        #reset {
+            margin-top: 10px;
+        }
+    </style>
+    <script src="model.js"></script>
+    <script src="view.js"></script>
+    <script src="controller.js"></script>
+</head>
+<body>
+    <h1>Tic-tac-toe</h1>
+    <p id = 'messages'></p>
+    <table id = 'board'></table>
+    <button id = 'reset'>Reset</button>
+</body>
+<script>
+    var model = model();
+    var view = view();
+    var controller = controller(view, model);
+    view.control(controller);
+</script>
+</html>
