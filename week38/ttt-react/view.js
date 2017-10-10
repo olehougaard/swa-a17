@@ -10,17 +10,15 @@ function createMessage(model) {
 
 function createBoard(model) {
     return table(null, 
-        tbody.apply(null, [null].concat(
-            model.board.map( (row, i) => 
-                tr.apply(null, [null].concat(row.map ( (tile, j) => 
+        tbody(null, null, ...model.board.map((row, i) => 
+                tr(null, null, ...row.map ((tile, j) => 
                     td({
                         className: tile || 'blank',
                         onClick: () => dispatch({type:'move', x: i, y: j})
                     })
-                )))    
-            )
-        )
-    ))    
+                ))    
+        ))
+    )    
 }    
 
 function view(model) {

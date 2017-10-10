@@ -1,10 +1,9 @@
 {
   "name": "swa-a17",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha .\\week40\\tic-tac-toe\\test\\*_test_mocha.js"
   },
   "repository": {
     "type": "git",
@@ -21,10 +20,12 @@
     "react-dom": "^15.6.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-react": "^6.24.1",
-    "expect": "^21.2.1",
-    "mocha": "^3.5.3",
-    "tape": "^4.8.0"
-  }
+    "babel-cli": "6.26.0",
+    "babel-preset-react": "6.24.1",
+    "chai": "3.5.0",
+    "chai-spies": "0.7.1",
+    "mocha": "3.5.3",
+    "tape": "4.8.0"
+  },
+  "description": ""
 }
