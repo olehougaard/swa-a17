@@ -1,4 +1,4 @@
-function view() {
+function view(document) {
     "use strict";
     
     var messages = document.getElementById('messages'),

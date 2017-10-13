@@ -16,4 +16,3 @@ test('Diagonals are winning', assert => {
     assert.deepEqual({ winner: 'X', row: [{x: 0, y: 0}, {x: 1, y: 1}, {x: 2, y: 2}]} , m.winner())
     assert.end()
 })
-
