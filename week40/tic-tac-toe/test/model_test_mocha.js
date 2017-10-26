@@ -1,10 +1,11 @@
-const { expect } = require('chai')
+const { expect, should } = require('chai')
 const model  = require('../model.js')
 
+should()
 describe('model', () => {
     it('should start with X in turn', () => {
         console.log(expect(5))
-        expect(model().playerInTurn()).to.equal('X')
+        model().playerInTurn().should.equal('X')
     })
     it('should count diagonals as a winning move', () => {
         const m = model()
