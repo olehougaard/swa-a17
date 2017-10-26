@@ -9,8 +9,9 @@ function block(ms) {
     while(Date.now() < start + ms);
 }
 function timeout_promise(ms, callback) {
+    if (typeof callback != 'function') throw new Error('callback is not a function')
     return new Promise( (resolve, reject) => {
-        setTimeout(ms, () => callback(resolve, reject))
+        setTimeout(() => callback(resolve, reject), ms)
     })
 }
 
@@ -22,7 +23,7 @@ module.exports = {
             if (token1 == token) 
                 return token2 
             else 
-                throw new Exception('Unauthorized')
+                throw 'Unauthorized'
             },
         secret(number, token) {
             switch(number) {
@@ -31,59 +32,59 @@ module.exports = {
                     if (token == token1 || token == token2)
                         return top_secret[0]
                     else
-                        throw new Exception('Illegal access')
+                        throw 'Illegal access'
                 case 1:
                     block(1000)
                     if (token == token2)
                         return top_secret[1]
                     else
-                        throw new Exception('Illegal access')
+                        throw 'Illegal access'
                 case 2:
                     block(2000)
                     if (token == token2)
-                        return top_secret[1]
+                        return top_secret[2]
                     else
-                        throw new Exception('Illegal access')
+                        throw 'Illegal access'
                 default:
-                    throw new Exception('File not found')
+                    throw 'File not found'
             }
         }
     },
     callback: {
-        validate(username, password, callback) { setTimeout(500, () => callback(token1)) },
+        validate(username, password, callback) { setTimeout(() => callback(token1), 500) },
         authorize(token, callback, onError) { 
-            setTimeout(800, () => { 
+            setTimeout(() => { 
                 if (token1 == token) 
                     callback(token2)
                 else 
                     onError('Unauthorized')
-            })
+            }, 800)
         },
         secret(number, token, callback, onError) {
             switch(number) {
                 case 0:
-                    setTimeout(5000, () => {
+                    setTimeout(() => {
                         if (token == token1 || token == token2)
                             callback(top_secret[0])
                         else
                             onError('Illegal access')
-                    })
+                    }, 5000)
                     break
                 case 1:
-                    setTimeout(1000, () => {
+                    setTimeout(() => {
                         if (token == token2)
                             callback(top_secret[1])
                         else
                             onError('Illegal access')
-                    })
+                    }, 1000)
                     break
                 case 2:
-                    setTimeout(2000, () => {
+                    setTimeout(() => {
                         if (token == token2)
-                            callback(top_secret[1])
+                            callback(top_secret[2])
                         else
                             onError('Illegal access')
-                    })
+                    }, 2000)
                     break
                 default:
                     onError('File not found')
@@ -119,7 +120,7 @@ module.exports = {
                 case 2:
                     return timeout_promise(2000, (resolve, reject) => {
                         if (token == token2)
-                            resolve(top_secret[1])
+                            resolve(top_secret[2])
                         else
                             reject('Illegal access')
                     })
