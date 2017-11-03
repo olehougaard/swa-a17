@@ -1,0 +1,65 @@
+<html>
+<head> 
+    <title>Tic-tac-toe</title>
+    <style>
+        td {
+            width: 40px;
+            height: 40px;
+            border: 1px solid black;
+        }
+        td.blank {
+            background: white;
+        }
+        td.X {
+            background-image: url(X.png);
+        }
+        td.O {
+            background-image: url(O.png);
+        }
+        table {
+            border: 1px solid black;
+            border-spacing: 0;
+        }
+        #reset {
+            margin-top: 10px;
+        }
+    </style>
+    <script crossorigin src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <script>var module = {}</script>
+    <script src="model.js"></script>
+    <script src="view.js"></script>
+    <script src="player.js"></script>
+    <script src="store.js"></script>
+</head>
+<body>
+    <div id='game'></div>
+</body>
+<script>
+    fetch('http://localhost:8080/clean', { method: 'POST' })
+    .then(res => res.json())
+    .then(json => {
+        const updater = update(document.getElementById('game'))
+        const the_store = store(json, updater, v => view(v, dispatch));
+        function dispatch(action) {
+            switch(action.type) {
+                case 'reset':
+                    fetch('http://localhost:8080/clean', { method: 'POST' })
+                    .then(res => res.json())
+                    .then(json => the_store.onAction({ type: 'reset', model: json }))
+                    .catch(console.error)
+                    break;
+                case 'move':
+                    fetch('http://localhost:8080/move', { method: 'POST', body: JSON.stringify(action) })
+                    .then(res => res.json())
+                    .then(json => the_store.onAction(Object.assign(json, { type :'move'})))
+                    .catch(console.error)
+                    break;
+                default:
+                    the_store.onAction(action)
+            }
+        }
+        updater(view(json, dispatch))
+    })
+</script>
+</html>
