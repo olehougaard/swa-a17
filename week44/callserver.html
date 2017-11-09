@@ -1,0 +1,13 @@
+<html>
+    <script>
+        function loadCallback() {
+            var hxr = new XMLHttpRequest()
+            hxr.open('GET', 'http://localhost:8088/UserRWS/users')
+            hxr.onload = () => document.getElementById('response').innerHTML = hxr.responseText
+            hxr.send()
+        }
+    </script>
+    <body onload='loadCallback()'>
+        <p id='response'></p>
+    </body>
+</html>
