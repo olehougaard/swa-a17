@@ -1,0 +1,48 @@
+<html>
+<head> 
+    <title>Tic-tac-toe</title>
+    <style>
+        td {
+            width: 76px;
+            height: 76px;
+            border: 1px solid black;
+        }
+        td.blank {
+            background: white;
+        }
+        td.X {
+            background-image: url(X.png);
+            background-size: 100% 100%;
+        }
+        td.O {
+            background-image: url(O.png);
+            background-size: 100% 100%;
+        }
+        table {
+            border: 1px solid black;
+            border-spacing: 0;
+            margin: 10px;
+        }
+        button {
+            margin: 10px;
+        }
+    </style>
+    <script crossorigin src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <script src="model.js"></script>
+    <script src="view.js"></script>
+    <script src="player.js"></script>
+    <script src="store.js"></script>
+</head>
+<body>
+    <div id="board"></div>
+</body>
+<script>
+    const updater = update(document.getElementById('board'))
+    const the_store = store(model(), updater);
+    function dispatch(action) {
+        the_store.onAction(action)
+    }
+    updater(view(the_store.state()))
+</script>
+</html>
