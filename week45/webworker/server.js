@@ -1,9 +1,7 @@
 const express = require('express')
 
-const games = []
+const fileserver = express()
 
-const gameserver = express()
+fileserver.use(express.static('static'))
 
-gameserver.use(express.static('static'))
-
-gameserver.listen(8080, () => console.log('Gameserver listening on 8080'))
+fileserver.listen(8080, () => console.log('File server listening on 8080'))
