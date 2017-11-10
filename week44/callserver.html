@@ -1,10 +1,18 @@
 <html>
     <script>
         function loadCallback() {
+        	fetch('http://localhost:8088/UserRWS/users', { method: 'POST', body: JSON.stringify({name: 'George', email: 'idontknow@example.com'}) })
+        	.then(r => r.json())
+        	.then(console.log)
             var hxr = new XMLHttpRequest()
             hxr.open('GET', 'http://localhost:8088/UserRWS/users')
-            hxr.onload = () => document.getElementById('response').innerHTML = hxr.responseText
+            hxr.onload = () => {
+            	var users = JSON.parse(hxr.responseText)
+            	for(user of users) console.log(user)
+            	document.getElementById('response').innerHTML = hxr.responseText
+            }
             hxr.send()
+            document.getElementById('response').innerText = 'Sending'
         }
     </script>
     <body onload='loadCallback()'>
