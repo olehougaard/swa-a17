@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <script>
+            function onLoad() {
+                const ww = new Worker('ww.js')
+                ww.addEventListener('message', function(e) {
+                    document.getElementById('messages').innerText = e.data
+                })
+                ww.postMessage('Loaded')
+            }
+        </script>
+    </head>
+    <body onload='onLoad()'>
+        <p id ='messages'></p>
+    </body>
+</html>
