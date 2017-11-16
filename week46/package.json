@@ -1,0 +1,14 @@
+{
+  "name": "photo_viewer",
+  "version": "1.0.0",
+  "description": "Photo viewer",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Me",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "~1.7.9"
+  }
+}
